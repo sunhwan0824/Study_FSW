@@ -42,6 +42,7 @@ void vTask2( void *pvParameters )
 	for( ;; )
 	{
 		console_print( pcTaskName );
+<<<<<<< HEAD
 		vTaskResume(xTask3Handle); // Task 3의 suspended 상태 해제
         vTaskDelay( 5000 );
 	}
@@ -56,6 +57,9 @@ void vTask3( void *pvParameters )
 	{
 		console_print( pcTaskName );
         vTaskSuspend(NULL); // 자기 자신을 suspend
+=======
+        vTaskDelay( 3000 );
+>>>>>>> e0aa26b2b9f12ae6b1d319baf1d9d031709d9bcb
 	}
 }
 
