@@ -20,7 +20,7 @@ void vApplicationIdleHook( void )
     usleep( 15000 );
 }
 
-TaskHandle_t xTask3Handle = NULL;
+// TaskHandle_t xTask3Handle = NULL;
 
 // Task 1: Sleep Task
 void vTask1( void *pvParameters )
@@ -42,7 +42,11 @@ void vTask2( void *pvParameters )
 	for( ;; )
 	{
 		console_print( pcTaskName );
+<<<<<<< HEAD
 		vTaskResume(xTask3Handle); // Task 3의 suspended 상태 해제
+=======
+		vTaskResume( NULL ); // Task 3의 suspended 상태 해제
+>>>>>>> hw1-2
         vTaskDelay( 5000 );
 	}
 }
@@ -65,7 +69,7 @@ int main( void )
 
 	xTaskCreate( vTask1, "Task 1", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
 	xTaskCreate( vTask2, "Task 2", configMINIMAL_STACK_SIZE, NULL, 3, NULL );
-	xTaskCreate( vTask3, "Task 3", configMINIMAL_STACK_SIZE, NULL, 2, &xTask3Handle );
+	xTaskCreate( vTask3, "Task 3", configMINIMAL_STACK_SIZE, NULL, 2, NULL );
     
 	vTaskStartScheduler();
 	for( ;; );
