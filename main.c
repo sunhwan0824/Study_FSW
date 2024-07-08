@@ -20,10 +20,12 @@ void vApplicationIdleHook( void )
     usleep( 15000 );
 }
 
-// Task 1 정의
+TaskHandle_t xTask3Handle = NULL;
+
+// Task 1: Sleep Task
 void vTask1( void *pvParameters )
 {
-	const char *pcTaskName = "Task 1 is running\r\n";
+	const char *pcTaskName = "zzzzzzz\r\n";
 
 	for( ;; )
 	{
@@ -31,15 +33,33 @@ void vTask1( void *pvParameters )
         vTaskDelay( 1000 );
 	}
 }
-// Task 2 정의
+
+// Task 2: Ring Task
 void vTask2( void *pvParameters )
 {
-	const char *pcTaskName = "Task 2 is running\r\n";
+	const char *pcTaskName = "알람! 알람! 알람!\r\n";
 
 	for( ;; )
 	{
 		console_print( pcTaskName );
-        vTaskDelay( 2000 );
+<<<<<<< HEAD
+		vTaskResume(xTask3Handle); // Task 3의 suspended 상태 해제
+        vTaskDelay( 5000 );
+	}
+}
+
+// Task 3: Put off Task
+void vTask3( void *pvParameters )
+{
+	const char *pcTaskName = "5분만..\r\n";
+
+	for( ;; )
+	{
+		console_print( pcTaskName );
+        vTaskSuspend(NULL); // 자기 자신을 suspend
+=======
+        vTaskDelay( 3000 );
+>>>>>>> e0aa26b2b9f12ae6b1d319baf1d9d031709d9bcb
 	}
 }
 
@@ -48,9 +68,13 @@ int main( void )
     console_init(); 
 
 	xTaskCreate( vTask1, "Task 1", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
-	xTaskCreate( vTask2, "Task 2", configMINIMAL_STACK_SIZE, NULL, 1, NULL );
+	xTaskCreate( vTask2, "Task 2", configMINIMAL_STACK_SIZE, NULL, 3, NULL );
+	xTaskCreate( vTask3, "Task 3", configMINIMAL_STACK_SIZE, NULL, 2, &xTask3Handle );
     
 	vTaskStartScheduler();
 	for( ;; );
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> hw1-2
