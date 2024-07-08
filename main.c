@@ -39,7 +39,7 @@ void vTask2( void *pvParameters )
 	for( ;; )
 	{
 		console_print( pcTaskName );
-        vTaskDelay( 500 );
+        vTaskDelay( 2000 );
 	}
 }
 
